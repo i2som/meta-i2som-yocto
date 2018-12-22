@@ -25,3 +25,13 @@ INHERIT += "image-mklibs"
 #INHERIT += "recipe_sanity"
 
 PACKAGE_CLASSES ?= "package_rpm"
+
+
+# Uncomment below lines to enable systemd
+
+#DISTRO_FEATURES_remove = "sysvinit"
+#DISTRO_FEATURES += "systemd"
+#VIRTUAL-RUNTIME_init_manager = "systemd"
+#PREFERRED_PROVIDER_udev = "systemd"
+#DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+#PREFERRED_PROVIDER_udev-utils = "systemd"
