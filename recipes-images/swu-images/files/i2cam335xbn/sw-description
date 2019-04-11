@@ -1,0 +1,50 @@
+software =
+{
+    version = "##SW_VERSION##";
+
+    images: (
+        {
+            filename = "##SPLIMG_NAME##";
+            device = "##SPL1_DEV##";
+            type = "flash";
+            sha256 = "@##SPLIMG_NAME##";
+        },
+        {
+            filename = "##SPLIMG_NAME##";
+            device = "##SPL2_DEV##";
+            type = "flash";
+            sha256 = "@##SPLIMG_NAME##";
+        },
+        {
+            filename = "##UBOOTIMG_NAME##";
+            device = "##UBOOT1_DEV##";
+            type = "flash";
+            sha256 = "@##UBOOTIMG_NAME##";
+        },
+        {
+            filename = "##UBOOTIMG_NAME##";
+            device = "##UBOOT2_DEV##";
+            type = "flash";
+            sha256 = "@##UBOOTIMG_NAME##";
+        },
+        {
+            filename = "##LINUXIMG_NAME##";
+            device = "##LINUX1_DEV##";
+            type = "flash";
+            sha256 = "@##LINUXIMG_NAME##";
+        },
+        {
+            filename = "##LINUXIMG_NAME##";
+            device = "##LINUX2_DEV##";
+            type = "flash";
+            sha256 = "@##LINUXIMG_NAME##";
+        },
+        {
+            filename = "##ROOTIMG_NAME##";
+            device = "##ROOTFS1_DEV##";
+            type = "flash";
+            sha256 = "@##ROOTIMG_NAME##";
+        }
+    );
+    ##PREINSTALL_SCRIPT##
+}

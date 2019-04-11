@@ -1,0 +1,32 @@
+software =
+{
+    version = "##SW_VERSION##";
+
+    images: (
+        {
+            filename = "##BOOTIMG_NAME##";
+            device = "##BOOT1_DEV##";
+            type = "raw";
+            sha256 = "@##BOOTIMG_NAME##";
+        },
+        {
+            filename = "##BOOTIMG_NAME##";
+            device = "##BOOT2_DEV##";
+            type = "raw";
+            sha256 = "@##BOOTIMG_NAME##";
+        },
+        {
+            filename = "##ROOTIMG_NAME##";
+            device = "##ROOTFS1_DEV##";
+            type = "raw";
+            sha256 = "@##ROOTIMG_NAME##";
+        },
+        {
+            filename = "##ROOTIMG_NAME##";
+            device = "##ROOTFS2_DEV##";
+            type = "raw";
+            sha256 = "@##ROOTIMG_NAME##";
+        }
+    );
+    ##PREINSTALL_SCRIPT##
+}
