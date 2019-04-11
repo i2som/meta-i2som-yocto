@@ -13,4 +13,6 @@ CONFLICT_DISTRO_FEATURES = "x11 wayland"
 IMAGE_INSTALL += "\
     packagegroup-base \
     packagegroup-qt \
+    tslib-conf \
+    tslib-tests \
 "
