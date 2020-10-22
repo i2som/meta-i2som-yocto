@@ -10,7 +10,7 @@ PACKAGECONFIG_GL = "gles2 eglfs"
 PACKAGECONFIG_FONTS = "fontconfig"
 
 #this is necessary for qtquickcontrols-qmlplugins
-PACKAGECONFIG_append = " accessibility"
+PACKAGECONFIG_append = " accessibility examples"
 
 #input devices
 PACKAGECONFIG_append = " libinput"
