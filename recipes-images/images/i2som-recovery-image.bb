@@ -13,14 +13,16 @@ PACKAGE_INSTALL = " \
 	u-boot-fw-utils \
 	dbus \
 	wipe \
-    gptfdisk \
+	gptfdisk \
 	mmc-utils \
 	swupdate \
 	util-linux-sfdisk \
 	e2fsprogs-mke2fs \
 	e2fsprogs-resize2fs \
 	mtd-utils-ubifs \
-    iperf3 \
+	iperf3 \
+	confuse \
+	iproute2 \
 "
 
 IMAGE_FEATURES = ""
