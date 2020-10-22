@@ -132,6 +132,16 @@ reboot_system() {
 }
 
 #------------------------------------------------------------------------------
+# Function - reboot_system
+#
+# Reboots the system.
+#------------------------------------------------------------------------------
+led_ops() {
+    echo none > /sys/class/leds/cpu/trigger
+    echo ${1} > /sys/class/leds/cpu/brightness
+}
+
+#------------------------------------------------------------------------------
 # Function - quit_with_error
 #
 # Ends the recovery process with the given error message.
@@ -349,6 +359,7 @@ fi
 for arg in $(cat /proc/cmdline); do
 	case "${arg}" in
 		rescue=1) eval "${arg}";;
+		factory=1) eval "${arg}";;
 	esac
 done
 
@@ -380,11 +391,19 @@ fi
 
 swupdate -i ${update_package}
 if [ "$?" = "0" ]; then
-    log "Firmware update process succeed!"
+    log "The system upgrade successful!"
     fw_setenv mtdbootpart linux
 else
     quit_with_error "Error executing the firmware update"
 fi
 
 #clear_uboot_vars
-reboot_system
+if [ -n "${factory}" ]; then
+    led_ops 1
+    while true
+    do
+        sleep 5
+    done
+else
+    reboot_system
+fi
