@@ -8,6 +8,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425
 SRC_URI = "file://sw-description"
 SRC_URI_append_i2cam335xbe = " file://factory-update.sh"
 SRC_URI_append_i2cam335xbn = " file://factory-update.sh"
+SRC_URI_append_i2cam335xb-i2s335ub4d256n256 = " file://factory-update.sh"
+SRC_URI_append_i2cam335xb-i2s335ub4d512e4 = " file://factory-update.sh"
 
 inherit swupdate
 
@@ -21,9 +23,13 @@ SOFTWARE_VERSION ?= "0.0.1"
 
 BOOTFS_EXT ?= ""
 ROOTFS_EXT_i2cam335xbn ?= ".ubi"
+ROOTFS_EXT_i2cam335xb-i2s335ub4d256n256 ?= ".ubi"
 
 BOOTFS_EXT_i2cam335xbe ?= ".boot.vfat"
 ROOTFS_EXT_i2cam335xbe ?= ".ext4"
+
+BOOTFS_EXT_i2cam335xb-i2s335ub4d512e4 ?= ".boot.vfat"
+ROOTFS_EXT_i2cam335xb-i2s335ub4d512e4 ?= ".ext4"
 
 BOOT_DEV_NAME ?= "/dev/mtd_kernel"
 ROOTFS_DEV_NAME ?= "/dev/mtd_rootfs"
@@ -31,6 +37,20 @@ ROOTFS_DEV_NAME ?= "/dev/mtd_rootfs"
 SPL_IMG_EXT = ""
 UBOOT_IMG_EXT = ""
 LINUXFIT_EXT = ""
+
+SPL_IMG_EXT_i2cam335xb-i2s335ub4d256n256 = ".boot.mlo"
+UBOOT_IMG_EXT_i2cam335xb-i2s335ub4d256n256 = ".boot.uboot"
+LINUXFIT_EXT_i2cam335xb-i2s335ub4d256n256 ?= ".linux.fit"
+
+SPL1_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/spl1"
+SPL2_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/spl2"
+UBOOT1_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/uboot1"
+UBOOT2_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/uboot2"
+LINUX1_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/linux1"
+LINUX2_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/linux2"
+ROOTFS1_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= "/dev/rootfs1"
+ROOTFS2_DEV_NAME_i2cam335xb-i2s335ub4d256n256 ?= ""
+
 
 SPL_IMG_EXT_i2cam335xbn = ".boot.mlo"
 UBOOT_IMG_EXT_i2cam335xbn = ".boot.uboot"
@@ -50,6 +70,11 @@ BOOT2_DEV_NAME_i2cam335xbe ?= "/dev/mmcblk1p2"
 ROOTFS1_DEV_NAME_i2cam335xbe ?= "/dev/mmcblk1p4"
 ROOTFS2_DEV_NAME_i2cam335xbe ?= "/dev/mmcblk1p5"
 
+BOOT1_DEV_NAME_i2cam335xb-i2s335ub4d512e4 ?= "/dev/mmcblk1p1"
+BOOT2_DEV_NAME_i2cam335xb-i2s335ub4d512e4 ?= "/dev/mmcblk1p2"
+ROOTFS1_DEV_NAME_i2cam335xb-i2s335ub4d512e4 ?= "/dev/mmcblk1p4"
+ROOTFS2_DEV_NAME_i2cam335xb-i2s335ub4d512e4 ?= "/dev/mmcblk1p5"
+
 ROOTFS_ENC_DEV = "${ROOTFS_DEV_NAME}"
 ROOTFS_DEV_NAME_FINAL = "${ROOTFS_DEV_NAME}"
 PREINST_SCRIPT_TEMPLATE_EMMC = "scripts: ( { filename = \"factory-update.sh\"; type = \"shellscript\"; sha256 = \"@factory-update.sh\"; \\x7D );"
@@ -57,6 +82,9 @@ PREINST_SCRIPT_TEMPLATE_NAND = "scripts: ( { filename = \"factory-update.sh\"; t
 PREINST_SCRIPT_DESC = ""
 PREINST_SCRIPT_DESC_i2cam335xbn = "${PREINST_SCRIPT_TEMPLATE_NAND}"
 PREINST_SCRIPT_DESC_i2cam335xbe = "${PREINST_SCRIPT_TEMPLATE_EMMC}"
+
+PREINST_SCRIPT_DESC_i2cam335xb-i2s335ub4d512e4 = "${PREINST_SCRIPT_TEMPLATE_EMMC}"
+PREINST_SCRIPT_DESC_i2cam335xb-i2s335ub4d256n256 = "${PREINST_SCRIPT_TEMPLATE_NAND}"
 
 python () {
     img_fstypes = d.getVar('BOOTFS_EXT', True) + " " + d.getVar('ROOTFS_EXT', True) + " " + d.getVar('SPL_IMG_EXT', True) + " " + d.getVar('UBOOT_IMG_EXT', True) + " " + d.getVar('LINUXFIT_EXT', True)
@@ -68,7 +96,9 @@ def get_baseimg_pn(d):
     return file_name[:file_name.find("-swu")]
 
     #do_unpack[postfuncs] += "fill_description"
-do_unpack[postfuncs] += " ${@bb.utils.contains("MACHINE_ARCH", "i2cam335xbe", "fill_description_i2cam335xbe", "fill_description_i2cam335xbn", d)} "
+    #do_unpack[postfuncs] += " ${@bb.utils.contains("MACHINE_ARCH", "i2cam335xbe", "fill_description_i2cam335xbe", "fill_description_i2cam335xbn", d)} "
+do_unpack[postfuncs] += " ${@bb.utils.contains("MACHINE_ARCH", "i2cam335xb-i2s335ub4d256n256", "fill_description_i2cam335xbn", "", d)} "
+do_unpack[postfuncs] += " ${@bb.utils.contains("MACHINE_ARCH", "i2cam335xb-i2s335ub4d512e4", "fill_description_i2cam335xbe", "", d)} "
 
 fill_description_i2cam335xbe() {
 
