@@ -19,5 +19,8 @@ IMAGE_INSTALL = " \
     ${@bb.utils.contains("COMBINED_FEATURES", "bluetooth", "packagegroup-bluetooth", "", d)} \
     ${@bb.utils.contains("COMBINED_FEATURES", "3g", "packagegroup-3g", "", d)} \
     ntp \
+    ntpdate \
     ntp-utils \
+    tcpdump \
+    tzdata \
 "
